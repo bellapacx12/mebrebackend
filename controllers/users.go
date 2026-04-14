@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"log"
 	"net/http"
 	"strconv"
@@ -58,10 +59,12 @@ func GetUser(c *gin.Context) {
 
 	var user models.User
 	if err := config.DB.Where("telegram_id = ?", tid).First(&user).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
+
+		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 			return
 		}
+
 		log.Printf("[ERROR] Failed to fetch user: %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database error"})
 		return
