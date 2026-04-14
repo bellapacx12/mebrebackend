@@ -30,6 +30,7 @@ WORKDIR /app
 
 # Copy the binary from builder
 COPY --from=builder /app/bingo-backend .
+COPY --from=builder /app/services ./services
 
 # Expose port
 EXPOSE 4000
