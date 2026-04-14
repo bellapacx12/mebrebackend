@@ -24,7 +24,7 @@ var (
 
 // LoadCards loads bingo cards from JSON file
 func LoadCards() {
-	data, err := os.ReadFile("cards.json")
+	data, err := os.ReadFile("services/cards.json")
 	if err != nil {
 		log.Fatalf("Failed to read cards.json: %v", err)
 	}
